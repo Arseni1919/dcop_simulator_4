@@ -69,7 +69,8 @@ def main():
             rand_choice = objects_dict[random.choice(agent.pos.neighbours)]
             agent.pos = rand_choice
         coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
-        plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN, alg_name='rand', coverage_value=coverage_value)
+        plotter.update_tracker('rand', coverage_value)
+        plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
 
 
 if __name__ == '__main__':

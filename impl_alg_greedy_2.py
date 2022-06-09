@@ -40,6 +40,7 @@ def main():
         target_max_life=MAX_LIFE,
         side_size=SIDE_SIZE
     )
+
     for i in range(LIFESPAN):
         print(f'\riteration: {i}', end='')
         run_greedy_2_alg(i, pos_list, targets_list, agents_list, objects_dict)
