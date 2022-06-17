@@ -28,6 +28,7 @@ def main():
         plotter.update_tracker('random', coverage_value)
         plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
 
+
 if __name__ == '__main__':
     LIFESPAN = 100
     N_TARGETS = 30
