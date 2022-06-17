@@ -3,7 +3,7 @@ from dcop_dynamic import create_dynamic_dcop_setting
 from functions import *
 
 
-def run_greedy_2_alg(iteration, pos_list, targets_list, agents_list, objects_dict):
+def run_alg_half_greedy(iteration, pos_list, targets_list, agents_list, objects_dict):
     active_t_list = list(filter(lambda x: x.up_values[iteration] > 0, targets_list))
 
     # targets send messages
@@ -43,7 +43,7 @@ def main():
 
     for i in range(LIFESPAN):
         print(f'\riteration: {i}', end='')
-        run_greedy_2_alg(i, pos_list, targets_list, agents_list, objects_dict)
+        run_alg_half_greedy(i, pos_list, targets_list, agents_list, objects_dict)
         coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
         plotter.update_tracker('greedy_2', coverage_value)
         plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)

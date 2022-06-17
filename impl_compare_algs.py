@@ -1,9 +1,9 @@
 from plot_functions import *
 from dcop_dynamic import create_dynamic_dcop_setting
 from functions import *
-from impl_alg_random import run_random_alg
-from impl_alg_greedy import run_greedy_alg
-from impl_alg_greedy_2 import run_greedy_2_alg
+from impl_alg_random import run_alg_random
+from impl_alg_greedy import run_alg_greedy
+from impl_alg_half_greedy import run_alg_half_greedy
 
 
 def init_start_positions(agents_list):
@@ -60,9 +60,9 @@ if __name__ == '__main__':
     SR = 5
 
     algs_dict = {
-        'random': run_random_alg,
-        'greedy': run_greedy_alg,
-        'half-greedy': run_greedy_2_alg,
+        'random': run_alg_random,
+        'greedy': run_alg_greedy,
+        'half-greedy': run_alg_half_greedy,
     }
-    algs_to_compare = ['half-greedy', 'random', 'greedy']
+    algs_to_compare = ['greedy', 'half-greedy', 'random']
     main()

@@ -3,7 +3,7 @@ from dcop_dynamic import create_dynamic_dcop_setting
 from functions import *
 
 
-def run_random_alg(iteration, pos_list, targets_list, agents_list, objects_dict):
+def run_alg_random(iteration, pos_list, targets_list, agents_list, objects_dict):
     for agent in agents_list:
         rand_choice = objects_dict[random.choice(agent.pos.neighbours)]
         agent.pos = rand_choice
@@ -23,7 +23,7 @@ def main():
     )
     for i in range(LIFESPAN):
         print(f'\riteration: {i}', end='')
-        run_random_alg(i, pos_list, targets_list, agents_list, objects_dict)
+        run_alg_random(i, pos_list, targets_list, agents_list, objects_dict)
         coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
         plotter.update_tracker('random', coverage_value)
         plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
