@@ -5,13 +5,21 @@
 
 ### Random
 
-Each robot picks its future location in a random manner.
+Each robot picks its future position in a random manner.
 
 ### Greedy
 
 A robot calculates total req for each position in its domain. Then it picks position that has the most req. If all positions are zero - it picks random.
 
 ### DSA_MST
+
+Pseudocode:
+
+![](static/DSA_MST.png)
+
+`select_pos` function:
+
+![](static/select_pos.png)
 
 ### CADSA
 
