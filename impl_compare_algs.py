@@ -4,6 +4,8 @@ from functions import *
 from impl_alg_random import run_alg_random
 from impl_alg_greedy import run_alg_greedy
 from impl_alg_half_greedy import run_alg_half_greedy
+from impl_alg_dsa_mst import run_alg_dsa_mst
+from alg_impl_alg_greedy_select_pos import run_alg_greedy_select_pos
 
 
 def init_start_positions(agents_list):
@@ -37,8 +39,10 @@ def compare_algs():
             print(f'\ralg: {alg_name}, iteration: {i}', end='')
             alg_func(i, pos_list, targets_list, agents_list, objects_dict)
 
-            # plots
+            # metrics
             coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
+
+            # plots
             plotter.update_tracker(alg_name, coverage_value)
             plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
 
@@ -63,6 +67,8 @@ if __name__ == '__main__':
         'random': run_alg_random,
         'greedy': run_alg_greedy,
         'half-greedy': run_alg_half_greedy,
+        'dsa_mst': run_alg_dsa_mst,
+        'greedy_select_pos': run_alg_greedy_select_pos,
     }
-    algs_to_compare = ['greedy', 'half-greedy', 'random']
+    algs_to_compare = ['greedy_select_pos', 'dsa_mst', 'greedy', 'half-greedy', 'random']
     main()

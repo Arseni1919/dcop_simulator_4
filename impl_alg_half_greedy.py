@@ -1,6 +1,7 @@
 from plot_functions import *
 from dcop_dynamic import create_dynamic_dcop_setting
 from functions import *
+from impl_run_alg_once import run_alg_once
 
 
 def run_alg_half_greedy(iteration, pos_list, targets_list, agents_list, objects_dict):
@@ -28,34 +29,7 @@ def run_alg_half_greedy(iteration, pos_list, targets_list, agents_list, objects_
         agent.pos = choice
 
 
-def main():
-    plotter = PlotField(side_size=SIDE_SIZE)
-    pos_list, targets_list, agents_list, objects_dict = create_dynamic_dcop_setting(
-        lifespan=LIFESPAN,
-        n_agents=N_AGENTS,
-        n_targets=N_TARGETS,
-        agent_sr=SR,
-        target_decay_rate=DECAY_RATE,
-        target_min_life=MIN_LIFE,
-        target_max_life=MAX_LIFE,
-        side_size=SIDE_SIZE
-    )
-
-    for i in range(LIFESPAN):
-        print(f'\riteration: {i}', end='')
-        run_alg_half_greedy(i, pos_list, targets_list, agents_list, objects_dict)
-        coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
-        plotter.update_tracker('greedy_2', coverage_value)
-        plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
-
-
 if __name__ == '__main__':
     LIFESPAN = 100
-    N_TARGETS = 30
-    N_AGENTS = 30
-    DECAY_RATE = 3
-    MIN_LIFE = 10
-    MAX_LIFE = 50
     SIDE_SIZE = 30
-    SR = 5
-    main()
+    run_alg_once(alg_func=run_alg_half_greedy, alg_name='greedy 2', side_size=SIDE_SIZE, lifespan=LIFESPAN)
