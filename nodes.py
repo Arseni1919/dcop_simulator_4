@@ -9,6 +9,7 @@ class PosNode:
         self.y = y
         self.name = f'{x}_{y}'
         self.neighbours = []
+        self.xy_pos = (self.x, self.y)
 
 
 class TargetNode:
