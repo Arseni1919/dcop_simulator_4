@@ -7,6 +7,9 @@ def run_alg_dsa_mst(iteration, pos_list, targets_list, agents_list, objects_dict
     for agent in agents_list:
         # collect positions of neighbours
 
+        for nei_agent in agents_list:
+            pass
+
         # create targets with curr_req
 
         # get new_pos

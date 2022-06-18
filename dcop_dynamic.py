@@ -14,7 +14,7 @@ def connect_neighbours(pos_list):
                     pos_2.neighbours.append(pos_1.name)
 
 
-def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=10, n_targets=30, target_decay_rate=3,
+def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets=30, target_decay_rate=3,
                                 target_min_life=40, target_max_life=50, side_size=30):
     pos_list = []
     targets_list = []
