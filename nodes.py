@@ -42,13 +42,15 @@ class TargetNode:
 
 
 class AgentNode:
-    def __init__(self, i, sr=10, pos=None, cred=50):
+    def __init__(self, i, sr=10, pos=None, cred=30):
         self.num = i
         self.name = f'agent_{i}'
         self.sr = sr
+        self.mr = 1
         self.start_pos = pos
         self.pos = pos
         self.cred = cred
+
 
 
 def main():

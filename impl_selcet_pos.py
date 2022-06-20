@@ -9,14 +9,15 @@ def distance(pos1, pos2):
 def select_pos(robot, targets, graph, robot_pos_name_set=None):
     if robot_pos_name_set is None:
         robot_pos_name_set = [pos_name for pos_name in robot.pos.neighbours]
+    robot_pos_name_set.append(robot.pos.name)
     pos_dict_name_pos = {pos_node.name: pos_node.xy_pos for pos_node in graph}
     pos_dict_name_pos_node = {pos_node.name: pos_node for pos_node in graph}
-    next_pos_name = select_pos_internal(robot, robot_pos_name_set, [t for t in targets], pos_dict_name_pos)
+    next_pos_name = select_pos_internal(robot, robot_pos_name_set, targets, pos_dict_name_pos)
     return pos_dict_name_pos_node[next_pos_name]
 
 
 def select_pos_internal(robot, robot_pos_name_set, funcs, pos_dict_name_pos):
-    max_func_value = max([target.req for target in funcs])
+    max_func_value = max([target.req for target in funcs]) if len(funcs) > 0 else 0
     if len(robot_pos_name_set) == 1 or max_func_value < 1:
         return random.sample(robot_pos_name_set, 1)[0]
     target_set = []

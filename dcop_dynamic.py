@@ -44,7 +44,7 @@ def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets
     print('creating agents...')
     nodes_for_agents = random.sample(pos_list, n_agents)
     for i in range(n_agents):
-        new_agent = AgentNode(i, sr=agent_sr, pos=nodes_for_agents[i], cred=random.randint(25, 51))
+        new_agent = AgentNode(i, sr=agent_sr, pos=nodes_for_agents[i], cred=random.randint(20, 41))
         agents_list.append(new_agent)
         objects_dict[new_agent.name] = new_agent
 
@@ -69,7 +69,7 @@ def main():
             rand_choice = objects_dict[random.choice(agent.pos.neighbours)]
             agent.pos = rand_choice
         coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
-        plotter.update_tracker('rand', coverage_value)
+        plotter.update_trackers('rand', coverage_value, collisions_value=0)
         plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
 
 

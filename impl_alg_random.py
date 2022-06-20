@@ -4,8 +4,7 @@ from impl_run_alg_once import run_alg_once
 
 def run_alg_random(iteration, pos_list, targets_list, agents_list, objects_dict):
     for agent in agents_list:
-        rand_choice = objects_dict[random.choice(agent.pos.neighbours)]
-        agent.pos = rand_choice
+        agent.pos = get_random_pos(agent, objects_dict)
 
 
 if __name__ == '__main__':

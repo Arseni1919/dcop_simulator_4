@@ -15,8 +15,11 @@ def run_alg_once(alg_func, alg_name, side_size=30, lifespan=120):
         print(f'\riteration: {i}', end='')
         alg_func(i, pos_list, targets_list, agents_list, objects_dict)
         coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
-        plotter.update_tracker(f'{alg_name}', coverage_value)
+        collisions_value = get_collisions_value(targets_list, agents_list, i_time=i)
+        plotter.update_trackers(f'{alg_name}', coverage_value, collisions_value)
         plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=lifespan)
+
+    plotter.show()
 
 
 def main():
