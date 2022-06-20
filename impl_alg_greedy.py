@@ -28,7 +28,7 @@ def run_alg_greedy(iteration, pos_list, targets_list, agents_list, objects_dict)
 
 if __name__ == '__main__':
     LIFESPAN = 100
-    SIDE_SIZE = 50
+    SIDE_SIZE = 30
     run_alg_once(alg_func=run_alg_greedy, alg_name='greedy', side_size=SIDE_SIZE, lifespan=LIFESPAN)
 
 

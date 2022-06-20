@@ -9,7 +9,7 @@ def distance(pos1, pos2):
 def select_pos(robot, targets, graph, robot_pos_name_set=None):
     if robot_pos_name_set is None:
         robot_pos_name_set = [pos_name for pos_name in robot.pos.neighbours]
-    robot_pos_name_set.append(robot.pos.name)
+        robot_pos_name_set.append(robot.pos.name)
     pos_dict_name_pos = {pos_node.name: pos_node.xy_pos for pos_node in graph}
     pos_dict_name_pos_node = {pos_node.name: pos_node for pos_node in graph}
     next_pos_name = select_pos_internal(robot, robot_pos_name_set, targets, pos_dict_name_pos)

@@ -8,6 +8,9 @@ from impl_alg_dsa_mst import run_alg_dsa_mst
 from impl_alg_greedy_select_pos import run_alg_greedy_select_pos
 from impl_alg_cadsa import run_alg_cadsa
 from impl_alg_ca_greedy_select_pos import run_alg_ca_greedy_select_pos
+from impl_alg_dssa import run_alg_dssa
+from impl_alg_max_sum_mst import run_alg_max_sum_mst
+from impl_alg_cams import run_alg_cams
 
 
 def init_start_positions(agents_list):
@@ -70,9 +73,21 @@ if __name__ == '__main__':
         'greedy_select_pos': run_alg_greedy_select_pos,
         'ca_select_pos': run_alg_ca_greedy_select_pos,
         'cadsa': run_alg_cadsa,
+        'dssa': run_alg_dssa,
+        'max_sum_mst': run_alg_max_sum_mst,
+        'cams': run_alg_cams,
     }
-    # algs_to_compare = ['dsa_mst', 'greedy_select_pos', 'greedy', 'half-greedy', 'random']
-    # algs_to_compare = ['dsa_mst', 'greedy_select_pos', 'greedy', 'random']
-    algs_to_compare = ['ca_select_pos', 'cadsa', 'dsa_mst', 'greedy_select_pos', 'random']
+
+    algs_to_compare = [
+        'max_sum_mst',
+        'cams',
+        'dssa',
+        'ca_select_pos',
+        'cadsa',
+        'dsa_mst',
+        'greedy_select_pos',
+        # 'greedy',
+        'random'
+    ]
 
     compare_algs()
