@@ -3,7 +3,6 @@ from dcop_dynamic import create_dynamic_dcop_setting
 from functions import *
 from impl_alg_random import run_alg_random
 from impl_alg_greedy import run_alg_greedy
-from impl_alg_half_greedy import run_alg_half_greedy
 from impl_alg_dsa_mst import run_alg_dsa_mst
 from impl_alg_greedy_select_pos import run_alg_greedy_select_pos
 from impl_alg_cadsa import run_alg_cadsa
@@ -68,7 +67,6 @@ if __name__ == '__main__':
     algs_dict = {
         'random': run_alg_random,
         'greedy': run_alg_greedy,
-        'half-greedy': run_alg_half_greedy,
         'dsa_mst': run_alg_dsa_mst,
         'greedy_select_pos': run_alg_greedy_select_pos,
         'ca_select_pos': run_alg_ca_greedy_select_pos,
