@@ -51,8 +51,6 @@ class AgentNode:
         self.pos = pos
         self.cred = cred
 
-
-
 def main():
     pass
 

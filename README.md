@@ -23,7 +23,23 @@ Pseudocode:
 
 ### CADSA
 
+After choosing DSA_MST next positions agents send the positions to their neighbours. The receiver will not go to a new position if it contradicts with next or (!) current positions of other agents.
+
+### SelectPos
+
+Next position of an agent is chosen greedily by `select-pos` function.
+
+### CA-SelectPos
+
+After choosing SelectPos next positions agents send the positions to their neighbours. The receiver will not go to a new position if it contradicts with next or (!) current positions of other agents.
+
 ### DSSA
+
+From paper "DSSA+: Distributed Collision Avoidance Algorithm in an Environment where Both Course and Speed Changes are Allowed", K. Hirayama et al., 2019.
+
+The flowchart of DSSA:
+
+![](static/dssa.png)
 
 ### Max-sum_MST
 

@@ -52,10 +52,6 @@ def compare_algs():
     plotter.show()
 
 
-def main():
-    compare_algs()
-
-
 if __name__ == '__main__':
     LIFESPAN = 120
     N_TARGETS = 30
@@ -78,4 +74,5 @@ if __name__ == '__main__':
     # algs_to_compare = ['dsa_mst', 'greedy_select_pos', 'greedy', 'half-greedy', 'random']
     # algs_to_compare = ['dsa_mst', 'greedy_select_pos', 'greedy', 'random']
     algs_to_compare = ['ca_select_pos', 'cadsa', 'dsa_mst', 'greedy_select_pos', 'random']
-    main()
+
+    compare_algs()
