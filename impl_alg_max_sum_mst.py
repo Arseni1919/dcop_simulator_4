@@ -2,6 +2,40 @@ from functions import *
 from impl_run_alg_once import run_alg_once
 
 
+class VarNode:
+    def __init__(self, agent, objects_dict, small_iterations):
+        self.node = agent
+        self.objects_dict = objects_dict
+        self.messages = {s_iter: {} for s_iter in range(small_iterations)}
+        self.nei_list = []
+
+    def send_messages(self):
+        pass
+
+    def choose_assignment(self):
+        self.node.pos = get_random_pos(self.node, self.objects_dict)
+
+
+class FuncTargetNode:
+    def __init__(self, target, small_iterations):
+        self.node = target
+        self.messages = {s_iter: {} for s_iter in range(small_iterations)}
+        self.nei_list = []
+
+    def send_messages(self):
+        pass
+
+
+class FuncPosNode:
+    def __init__(self, pos, small_iterations):
+        self.node = pos
+        self.messages = {s_iter: {} for s_iter in range(small_iterations)}
+        self.nei_list = []
+
+    def send_messages(self):
+        pass
+
+
 def cover_target(target, robots_set):
     cumulative_cov = sum([robot.cred for robot in robots_set])
     return cumulative_cov > target.req
@@ -52,29 +86,54 @@ def select_FMR_nei(target):
     return return_set
 
 
+def create_t_function_nodes(agents_list, temp_req, pos_list, small_iterations):
+    function_nodes = []
+    for target in temp_req:
+        func_target_node = FuncTargetNode(target, small_iterations)
+        function_nodes.append(func_target_node)
+    return function_nodes
+
+
+def create_variable_nodes(agents_list, temp_req, pos_list, objects_dict, small_iterations):
+    variable_nodes = []
+    for agent in agents_list:
+        variable_nodes.append(VarNode(agent, objects_dict, small_iterations))
+    return variable_nodes
+
+
+def set_neighbours(function_nodes, variable_nodes):
+    for f_node in function_nodes:
+        for v_node in variable_nodes:
+            dist = distance_nodes(f_node.node.pos, v_node.node.pos)
+            if dist <= v_node.node.sr + v_node.node.mr:
+                f_node.nei_list.append(v_node)
+                v_node.nei_list.append(f_node)
+
+
 def run_alg_max_sum_mst(iteration, pos_list, targets_list, agents_list, objects_dict):
     # parameters
     SMALL_ITERATIONS = 10
 
     # build factor graph
     temp_req = get_temp_req([], targets_list, iteration)
-    # nearby_t_list = list(filter(lambda x: distance_nodes(x.pos, pos_node) < agent.sr, active_t_list))
-    pass
+    function_nodes = create_t_function_nodes(agents_list, temp_req, pos_list, SMALL_ITERATIONS)
+    variable_nodes = create_variable_nodes(agents_list, temp_req, pos_list, objects_dict, SMALL_ITERATIONS)
+    set_neighbours(function_nodes, variable_nodes)
 
     # small iterations
     for small_iteration in range(SMALL_ITERATIONS):
 
         # function nodes
-        pass
+        for f_node in function_nodes:
+            f_node.send_messages()
 
         # variable nodes
-        pass
+        for v_node in variable_nodes:
+            v_node.send_messages()
 
     # choose next position
-    pass
-
-    for agent in agents_list:
-        agent.pos = get_random_pos(agent, objects_dict)
+    for v_node in variable_nodes:
+        v_node.choose_assignment()
 
 
 if __name__ == '__main__':
