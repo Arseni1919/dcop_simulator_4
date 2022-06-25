@@ -15,7 +15,7 @@ def connect_neighbours(pos_list):
 
 
 def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets=30, target_decay_rate=3,
-                                target_min_life=40, target_max_life=50, side_size=30):
+                                target_min_life=40, target_max_life=50, side_size=30, const_app=False):
     pos_list = []
     targets_list = []
     agents_list = []
@@ -36,7 +36,7 @@ def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets
     nodes_for_targets = random.sample(pos_list, n_targets)
     for i in range(n_targets):
         new_target = TargetNode(i, decay_rate=target_decay_rate, min_life=target_min_life, max_life=target_max_life,
-                                lifespan=lifespan, pos=nodes_for_targets[i])
+                                lifespan=lifespan, pos=nodes_for_targets[i], const=const_app)
         targets_list.append(new_target)
         objects_dict[new_target.name] = new_target
 

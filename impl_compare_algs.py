@@ -88,4 +88,7 @@ if __name__ == '__main__':
         'random'
     ]
 
+    # SEED
+    # set_seed(seed=12)
+
     compare_algs()

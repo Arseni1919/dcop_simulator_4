@@ -104,6 +104,72 @@ def breakdowns_correction(agents_list, agents_new_pos):
     #                 print('!!! COL')
 
 
+def set_seed(seed):
+    np.random.seed(seed)
+    random.seed(seed)
+
+
+def flatten_message(message, to_flatten=True):
+    if to_flatten:
+        min_value = min(message.values())
+        return {pos_i: value - min_value for pos_i, value in message.items()}
+    return message
+
+
+def zeros_message(ms_node, default_value=0.0):
+    return {pos_i: default_value for pos_i in ms_node.node.pos.neighbours}
+
+
+def cover_target(target, robots_set):
+    cumulative_cov = sum([robot.node.cred for robot in robots_set])
+    return cumulative_cov > target.node.req
+
+
+def select_FMR_nei(target):
+    total_set = []
+    SR_set = []
+    rest_set = []
+
+    for robot in target.nei_list:
+        dist = distance_nodes(robot.node.pos, target.node.pos)
+
+        if dist <= robot.node.sr + robot.node.mr:
+            total_set.append(robot)
+            if dist <= robot.node.sr:
+                SR_set.append(robot)
+            else:
+                rest_set.append(robot)
+
+    while cover_target(target, total_set):
+        def get_degree(node):
+            targets_nearby = list(filter(lambda x: 'target' in x.node.name, node.nei_list))
+            return len(targets_nearby)
+        max_degree = max([get_degree(x) for x in rest_set], default=0)
+        min_degree = min([get_degree(x) for x in SR_set], default=0)
+        if len(rest_set) > 0:
+            selected_to_remove = list(filter(lambda x: get_degree(x) == max_degree, rest_set))[0]
+            rest_set.remove(selected_to_remove)
+        else:
+            selected_to_remove = list(filter(lambda x: get_degree(x) == min_degree, SR_set))[0]
+            SR_set.remove(selected_to_remove)
+
+        temp_total_set = total_set[:]
+        temp_total_set.remove(selected_to_remove)
+        if not cover_target(target, temp_total_set):
+            break
+        total_set.remove(selected_to_remove)
+    # return total_set
+
+    total_set.sort(key=lambda x: x.node.cred, reverse=True)
+    return_set = []
+    for robot in total_set:
+        if not cover_target(target, return_set):
+            return_set.append(robot)
+    if len(total_set) > len(return_set):
+        pass
+    return return_set
+
+
 def main():
     pass
 
