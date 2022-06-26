@@ -67,11 +67,26 @@ Artificial Intelligence. 2009, pp. 299–304.
 
 ### Max-sum_MST with breakdowns
 
+Acts the same as Max-sum_MST but after calculations the algorithm checks if the robot is "broken". 
+If yes the robot stays on the same position. 
+It will "brake" if it will collide with other robot.
+
 ### CAMS
 
+Acts the same as Max-sum_MST plus some additions. 
+Positions themselves are also a part of the graph, and they represented as function nodes.
+They will send a little weight to assignment on their position and 0 on others.
+If the assignment includes several robots it will return minus infinity.
 
 ## Results
 
+### Coverage Graph
+
+![](static/cov.png)
+
+### Collisions Graph
+
+![](static/col.png)
 
 ## Credits
 
