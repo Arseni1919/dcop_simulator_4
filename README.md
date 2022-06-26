@@ -50,7 +50,7 @@ We apply Max-sum to DCOP_MST by adjusting the framework suggested in [*] as foll
 2. Generate a factor graph according to the current assignment where each sensor is
 a variable-node and each target is a function-node. Variable-node i is connected
 by an edge to a function-node if and only if the distance between them is less
-than or equal to the sum of MRi + SRi, i.e., the sensor can cover the target after
+than or equal to the sum of $MR_i + SR_i$, i.e., the sensor can cover the target after
 a single move.
 
 3. The agents execute the Max-sum algorithm for a predefined number of iterations.
