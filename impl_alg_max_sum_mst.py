@@ -97,16 +97,6 @@ class FuncTargetNode:
             v_node.messages[s_iter][self.node.name] = message
 
 
-class FuncPosNode:
-    def __init__(self, pos, small_iterations):
-        self.node = pos
-        self.messages = {s_iter: {} for s_iter in range(small_iterations)}
-        self.nei_list = []
-
-    def send_messages(self):
-        pass
-
-
 def create_t_function_nodes(agents_list, temp_req, pos_list, objects_dict, small_iterations):
     function_nodes = []
     for target in temp_req:
@@ -122,7 +112,7 @@ def create_variable_nodes(agents_list, temp_req, pos_list, objects_dict, small_i
     return variable_nodes
 
 
-def set_neighbours(function_nodes, variable_nodes, small_iterations):
+def set_target_neighbours(function_nodes, variable_nodes, small_iterations):
     for f_node in function_nodes:
         for v_node in variable_nodes:
             dist = distance_nodes(f_node.node.pos, v_node.node.pos)
@@ -156,7 +146,7 @@ def run_alg_max_sum_mst(iteration, pos_list, targets_list, agents_list, objects_
     temp_req = get_temp_req([], targets_list, iteration)
     function_nodes = create_t_function_nodes(agents_list, temp_req, pos_list, objects_dict, SMALL_ITERATIONS)
     variable_nodes = create_variable_nodes(agents_list, temp_req, pos_list, objects_dict, SMALL_ITERATIONS)
-    set_neighbours(function_nodes, variable_nodes, SMALL_ITERATIONS)
+    set_target_neighbours(function_nodes, variable_nodes, SMALL_ITERATIONS)
 
     # small iterations
     for s_iter in range(SMALL_ITERATIONS):

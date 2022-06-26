@@ -77,8 +77,8 @@ if __name__ == '__main__':
     }
 
     algs_to_compare = [
-        'max_sum_mst',
         'cams',
+        'max_sum_mst',
         'dssa',
         'ca_select_pos',
         'cadsa',
