@@ -78,6 +78,12 @@ Positions themselves are also a part of the graph, and they represented as funct
 They will send a little weight to assignment on their position and 0 on others.
 If the assignment includes several robots it will return minus infinity.
 
+## Simulator
+
+Example of the run of one problem. 
+
+![](static/onerun.png)
+
 ## Results
 
 ### Coverage Graph
