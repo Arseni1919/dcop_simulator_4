@@ -78,7 +78,7 @@ Positions themselves are also a part of the graph, and they represented as funct
 They will send a little weight to assignment on their position and 0 on others.
 If the assignment includes several robots it will return minus infinity.
 
-## Simulator
+## [Simulator](impl_compare_algs.py)
 
 Example of the run of one problem. 
 
