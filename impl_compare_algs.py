@@ -79,12 +79,12 @@ if __name__ == '__main__':
         'cadsa': run_alg_cadsa,
         'dssa': run_alg_dssa,
         'max_sum_mst': run_alg_max_sum_mst,
-        'max_sum_mst \n with breakdowns': run_max_sum_mst_breakdowns,
+        'max_sum_mst - breakdowns': run_max_sum_mst_breakdowns,
         'cams': run_alg_cams,
     }
 
     algs_to_compare = [
-        'max_sum_mst \n with breakdowns',
+        'max_sum_mst - breakdowns',
         'cams',
         'max_sum_mst',
         'dssa',
