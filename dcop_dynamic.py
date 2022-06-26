@@ -25,7 +25,7 @@ def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets
     objects_dict = {}
 
     # create positions
-    print('creating positions...')
+    print('\ncreating positions...')
     for x in range(1, side_size + 1):
         for y in range(1, side_size + 1):
             new_pos = PosNode(x, y)
