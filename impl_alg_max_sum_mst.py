@@ -39,32 +39,62 @@ class VarNode:
 
 
 class FuncTargetNode:
-    def __init__(self, target, small_iterations):
+    def __init__(self, target, small_iterations, objects_dict):
         self.node = target
         self.messages = {s_iter: {} for s_iter in range(small_iterations)}
         self.nei_list = []
+        self.objects_dict = objects_dict
+
+    def _create_list_of_domains(self, send_to_var_nei):
+        list_of_other_domains = []
+        list_of_other_nei = []
+        for nei in self.nei_list:
+            if nei.node.name != send_to_var_nei.node.name:
+                list_of_other_domains.append(nei.node.pos.neighbours)
+                list_of_other_nei.append(nei)
+        return list_of_other_domains, list_of_other_nei
+
+    def func(self, v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei):
+        # comb = {"name_of_nei": binary(0,1), ... } | 1 - in, 0 - out
+        coverage = 0
+
+        if distance_nodes(self.objects_dict[pos_i], self.node.pos) < v_node.node.sr:
+            coverage += v_node.node.cred
+
+        for pos_of_nei, nei in zip(comb_of_other_nei_pos, list_of_other_nei):
+            if distance_nodes(self.objects_dict[pos_of_nei], self.node.pos) < nei.node.sr:
+                coverage += nei.node.cred
+
+        return min(coverage, self.node.req)
+
+    def _prev_iter_brings(self, iteration, comb_of_other_nei_pos, list_of_other_nei):
+        if iteration == 0:
+            return 0
+        prev_iteration_brings = 0
+        for other_nei_pos, other_nei in zip(comb_of_other_nei_pos, list_of_other_nei):
+            # iteration -> name -> position -> value
+            prev_iteration_brings += self.messages[iteration - 1][other_nei.node.name][other_nei_pos]
+        return prev_iteration_brings
 
     def send_messages(self, s_iter):
         MINUS_INF = -70000
         for v_node in self.nei_list:
             message = zeros_message(v_node, default_value=MINUS_INF)
-            # list_of_other_domains, list_of_other_nei = self._create_list_of_domains(var_nei)
-            # comb_of_other_nei_pos_list = list(itertools.product(*list_of_other_domains))
-            # # print(f"\r {self.name}'s len of comb_of_other_nei_pos_list: {len(comb_of_other_nei_pos_list)} ...", end='')
-            # for comb_of_other_nei_pos in comb_of_other_nei_pos_list:
-            #     for pos_i in var_nei.domain:
-            #         message[pos_i] = max(message[pos_i],
-            #                              (
-            #                                      self.func(self.comb_for_func(var_nei, pos_i, comb_of_other_nei_pos,
-            #                                                                   list_of_other_nei)
-            #                                                ) +
-            #                                      self._prev_iter_brings(iteration, comb_of_other_nei_pos, list_of_other_nei)
-            #                              )
-            #                              )
-            # # if self.name == 'pos2' and var_nei.name == 'robot1':
-            # # print(f'message from {self.name} to {var_nei.name} is: {message}')
-            # message = flatten_message(message)
-            # var_nei.message_box[iteration][self.name] = message
+            list_of_other_domains, list_of_other_nei = self._create_list_of_domains(v_node)
+            comb_of_other_nei_pos_list = list(itertools.product(*list_of_other_domains))
+            for comb_of_other_nei_pos in comb_of_other_nei_pos_list:
+                for pos_i in v_node.node.pos.neighbours:
+                    message[pos_i] = max(
+                        message[pos_i],
+
+                        (
+                                self.func(v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei) +
+                                self._prev_iter_brings(s_iter, comb_of_other_nei_pos, list_of_other_nei)
+                        )
+                    )
+
+            message = flatten_message(message)
+            v_node.messages[s_iter][self.node.name] = message
 
 
 class FuncPosNode:
@@ -77,10 +107,10 @@ class FuncPosNode:
         pass
 
 
-def create_t_function_nodes(agents_list, temp_req, pos_list, small_iterations):
+def create_t_function_nodes(agents_list, temp_req, pos_list, objects_dict, small_iterations):
     function_nodes = []
     for target in temp_req:
-        func_target_node = FuncTargetNode(target, small_iterations)
+        func_target_node = FuncTargetNode(target, small_iterations,  objects_dict)
         function_nodes.append(func_target_node)
     return function_nodes
 
@@ -124,7 +154,7 @@ def run_alg_max_sum_mst(iteration, pos_list, targets_list, agents_list, objects_
 
     # build factor graph
     temp_req = get_temp_req([], targets_list, iteration)
-    function_nodes = create_t_function_nodes(agents_list, temp_req, pos_list, SMALL_ITERATIONS)
+    function_nodes = create_t_function_nodes(agents_list, temp_req, pos_list, objects_dict, SMALL_ITERATIONS)
     variable_nodes = create_variable_nodes(agents_list, temp_req, pos_list, objects_dict, SMALL_ITERATIONS)
     set_neighbours(function_nodes, variable_nodes, SMALL_ITERATIONS)
 
@@ -156,5 +186,5 @@ if __name__ == '__main__':
         alg_name='max_sum_mst',
         side_size=SIDE_SIZE,
         lifespan=LIFESPAN,
-        const_app=True
+        # const_app=True
     )
