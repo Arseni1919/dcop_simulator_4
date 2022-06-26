@@ -55,16 +55,16 @@ def compare_algs_in_scale():
 
 
 if __name__ == '__main__':
-    LIFESPAN = 100
+    LIFESPAN = 150
     N_PROBLEMS = 50
     N_TARGETS = 20
-    N_AGENTS = 20
+    N_AGENTS = 30
     DECAY_RATE = 3
     MIN_LIFE = 40
     MAX_LIFE = 50
     TARGETS_APART = True
     CONSTANT_APPEARANCE = False
-    SIDE_SIZE = 40
+    SIDE_SIZE = 50
     SR = 3
     # LIFE_PLOT = True
     LIFE_PLOT = False
