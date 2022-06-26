@@ -32,7 +32,6 @@ def get_coverage_value(targets_list, agents_list, i_time):
 
 
 def get_collisions_value(targets_list, agents_list, i_time):
-
     # vertex collisions
     vertex_collisions = 0
     for agent_1 in agents_list:
@@ -83,7 +82,6 @@ def get_random_pos(agent, objects_dict):
 
 
 def breakdowns_correction(agents_list, agents_new_pos):
-
     for agent_1 in agents_list:
         good_to_go = True
         for agent_2 in agents_list:
@@ -147,6 +145,7 @@ def select_FMR_nei(target):
         def get_degree(node):
             targets_nearby = list(filter(lambda x: 'target' in x.node.name, node.nei_list))
             return len(targets_nearby)
+
         max_degree = max([get_degree(x) for x in rest_set], default=0)
         min_degree = min([get_degree(x) for x in SR_set], default=0)
         if len(rest_set) > 0:
@@ -195,11 +194,12 @@ def save_results(algs_to_compare, n_problems, n_iters, big_cov_dict, big_col_dic
         big_col_dict[alg_name] = big_col_dict[alg_name].tolist()
     curr_dt = datetime.now()
     time_adding = f"{curr_dt.year}-{curr_dt.month}-{curr_dt.day}-{curr_dt.hour}-{curr_dt.minute}"
+
     out_file = open(f"data/{time_adding}_problems_{n_problems}__iters_{n_iters}_cov.json", "w")
     json.dump(big_cov_dict, out_file, indent=2)
     out_file.close()
 
-    out_file = open(f"data/problems_{n_problems}__iters_{n_iters}_col.json", "w")
+    out_file = open(f"data/{time_adding}_problems_{n_problems}__iters_{n_iters}_col.json", "w")
     json.dump(big_col_dict, out_file, indent=2)
     out_file.close()
 

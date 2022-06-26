@@ -69,7 +69,6 @@ if __name__ == '__main__':
     # LIFE_PLOT = True
     LIFE_PLOT = False
 
-
     algs_to_compare = [
         'max_sum_mst - breakdowns',
         'cams',
