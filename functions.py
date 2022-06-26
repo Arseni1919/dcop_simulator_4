@@ -39,7 +39,10 @@ def get_collisions_value(targets_list, agents_list, i_time):
         for agent_2 in agents_list:
             if agent_1.name != agent_2.name:
                 if agent_1.pos.name == agent_2.pos.name:
-                    vertex_collisions += 1
+                    if not agent_1.broken_bool:
+                        vertex_collisions += 1
+                    elif agent_1.broken_time == i_time:
+                        vertex_collisions += 1
     vertex_collisions /= 2
 
     # edge collisions
@@ -168,6 +171,21 @@ def select_FMR_nei(target):
     if len(total_set) > len(return_set):
         pass
     return return_set
+
+
+def execute_breakdowns(iteration, agents_list):
+    # broken no moving
+    for agent_1 in agents_list:
+        if agent_1.broken_bool:
+            agent_1.pos = agent_1.broken_pos
+
+    # breakdowns
+    for agent_1 in agents_list:
+        for agent_2 in agents_list:
+            if agent_1.name != agent_2.name:
+                if agent_1.pos.name == agent_2.pos.name:
+                    agent_1.get_broken(agent_1.pos, iteration)
+                    agent_2.get_broken(agent_2.pos, iteration)
 
 
 def main():

@@ -13,7 +13,9 @@ class PosNode:
 
 
 class TargetNode:
-    def __init__(self, i, decay_rate=3, min_life=10, max_life=30, lifespan=100, pos=None, req=100, const=False):
+    def __init__(self, i,
+                 decay_rate=3, min_life=10, max_life=30, lifespan=100,
+                 pos=None, req=100, const=False):
         self.num = i
         self.name = f'target_{i}'
         self.decay_rate = decay_rate
@@ -54,6 +56,20 @@ class AgentNode:
         self.start_pos = pos
         self.pos = pos
         self.cred = cred
+        self.broken_bool = False
+        self.broken_pos = None
+        self.broken_time = -1
+
+    def get_broken(self, pos, t):
+        if self.broken_time == -1:
+            self.broken_bool = True
+            self.broken_pos = pos
+            self.broken_time = t
+
+    def reset_broken(self):
+        self.broken_bool = False
+        self.broken_pos = None
+        self.broken_time = -1
 
 
 def main():

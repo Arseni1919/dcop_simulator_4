@@ -8,13 +8,15 @@ from impl_alg_greedy_select_pos import run_alg_greedy_select_pos
 from impl_alg_cadsa import run_alg_cadsa
 from impl_alg_ca_greedy_select_pos import run_alg_ca_greedy_select_pos
 from impl_alg_dssa import run_alg_dssa
-from impl_alg_max_sum_mst import run_alg_max_sum_mst
+from impl_alg_ms_mst import run_alg_max_sum_mst
 from impl_alg_cams import run_alg_cams
+from impl_alg_ms_mst_breakdowns import run_max_sum_mst_breakdowns
 
 
 def init_start_positions(agents_list):
     for agent in agents_list:
         agent.pos = agent.start_pos
+        agent.reset_broken()
 
 
 def compare_algs():
@@ -29,7 +31,9 @@ def compare_algs():
         target_decay_rate=DECAY_RATE,
         target_min_life=MIN_LIFE,
         target_max_life=MAX_LIFE,
-        side_size=SIDE_SIZE
+        side_size=SIDE_SIZE,
+        targets_apart=TARGETS_APART,
+        const_app=CONSTANT_APPEARANCE,
     )
 
     # algorithms
@@ -56,13 +60,15 @@ def compare_algs():
 
 if __name__ == '__main__':
     LIFESPAN = 120
-    N_TARGETS = 30
-    N_AGENTS = 30
+    N_TARGETS = 20
+    N_AGENTS = 20
     DECAY_RATE = 3
     MIN_LIFE = 40
     MAX_LIFE = 50
-    SIDE_SIZE = 30
-    SR = 5
+    TARGETS_APART = True
+    CONSTANT_APPEARANCE = False
+    SIDE_SIZE = 40
+    SR = 3
 
     algs_dict = {
         'random': run_alg_random,
@@ -73,10 +79,12 @@ if __name__ == '__main__':
         'cadsa': run_alg_cadsa,
         'dssa': run_alg_dssa,
         'max_sum_mst': run_alg_max_sum_mst,
+        'max_sum_mst \n with breakdowns': run_max_sum_mst_breakdowns,
         'cams': run_alg_cams,
     }
 
     algs_to_compare = [
+        'max_sum_mst \n with breakdowns',
         'cams',
         'max_sum_mst',
         'dssa',

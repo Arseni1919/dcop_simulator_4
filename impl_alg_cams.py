@@ -1,6 +1,6 @@
 from functions import *
 from impl_run_alg_once import run_alg_once
-from impl_alg_max_sum_mst import create_variable_nodes, create_t_function_nodes, set_target_neighbours
+from impl_alg_ms_mst import create_variable_nodes, create_t_function_nodes, set_target_neighbours
 
 
 class FuncPosNode:
@@ -126,6 +126,8 @@ def run_alg_cams(iteration, pos_list, targets_list, agents_list, objects_dict):
     # choose next position
     for v_node in variable_nodes:
         v_node.choose_assignment(SMALL_ITERATIONS)
+
+    execute_breakdowns(iteration, agents_list)
 
 
 if __name__ == '__main__':
