@@ -43,7 +43,27 @@ The flowchart of DSSA:
 
 ### Max-sum_MST
 
+We apply Max-sum to DCOP_MST by adjusting the framework suggested in [*] as follows:
 
+1. Select a random assignment.
+2. 
+3. Generate a factor graph according to the current assignment where each sensor is
+a variable-node and each target is a function-node. Variable-node i is connected
+by an edge to a function-node if and only if the distance between them is less
+than or equal to the sum of MRi + SRi, i.e., the sensor can cover the target after
+a single move.
+
+4. The agents execute the Max-sum algorithm for a predefined number of iterations.
+
+5. The sensors move to the best position (value assignment) as calculated by the
+algorithm.
+
+6. A new factor graph is generated according to the new assignment selection and
+the process repeats itself.
+
+[*] R. Stranders et al. “Decentralised Coordination of Mobile Sensors Using the
+Max-Sum Algorithm”. In: Proceedings of the International Joint Conference on
+Artificial Intelligence. 2009, pp. 299–304.
 
 ### Max-sum_MST with breakdowns
 
