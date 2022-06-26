@@ -35,7 +35,7 @@ def compare_algs_in_scale():
 
             # iterations
             for i_iter in range(LIFESPAN):
-                print(f'\rproblem: {i_problem}/{N_PROBLEMS}, alg: {alg_name} {i_alg}/{len(algs_to_compare)}, iteration: {i_iter}/{LIFESPAN}', end='')
+                print(f'\rproblem: {i_problem}/{N_PROBLEMS}, alg: "{alg_name}" {i_alg}/{len(algs_to_compare)}, iteration: {i_iter}/{LIFESPAN}', end='')
                 alg_func(i_iter, pos_list, targets_list, agents_list, objects_dict)
 
                 # metrics

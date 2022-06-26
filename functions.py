@@ -203,17 +203,6 @@ def save_results(algs_to_compare, n_problems, n_iters, big_cov_dict, big_col_dic
     json.dump(big_col_dict, out_file, indent=2)
     out_file.close()
 
-    # # Opening JSON file
-    # f = open('data.json')
-    # # returns JSON object as
-    # # a dictionary
-    # data = json.load(f)
-    # # Iterating through the json
-    # # list
-    # for i in data['emp_details']:
-    #     print(i)
-    # # Closing file
-    # f.close()
 
 def main():
     pass
