@@ -82,9 +82,15 @@ If the assignment includes several robots it will return minus infinity.
 
 ### Coverage Graph
 
+Remained coverage during the run.
+Averaged over 50 problems.
+
 ![](static/cov.png)
 
 ### Collisions Graph
+
+Cumulative sum of collisions during the run.
+Averaged over 50 problems.
 
 ![](static/col.png)
 
