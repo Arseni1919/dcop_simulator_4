@@ -37,7 +37,6 @@ def compare_algs():
         for i in range(LIFESPAN):
             print(f'\ralg: {alg_name}, iteration: {i}', end='')
             alg_func(i, pos_list, targets_list, agents_list, objects_dict)
-
             # metrics
             coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
             collisions_value = get_collisions_value(targets_list, agents_list, i_time=i)
@@ -45,6 +44,9 @@ def compare_algs():
             # plots
             plotter.update_trackers(alg_name, coverage_value, collisions_value)
             plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
+
+            # after inter and metrics
+            update_prev_pos(agents_list)
 
     plotter.show()
 

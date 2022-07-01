@@ -47,6 +47,9 @@ def compare_algs_in_scale():
                 plotter.update_trackers(alg_name, coverage_value, collisions_value)
                 plotter.plot_field(i_iter, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
 
+                # after inter and metrics
+                update_prev_pos(agents_list)
+
     plotter.show()
 
     save_results(algs_to_compare, N_PROBLEMS, LIFESPAN, big_cov_dict, big_col_dict)

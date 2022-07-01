@@ -55,6 +55,7 @@ class AgentNode:
         self.mr = 1
         self.start_pos = pos
         self.pos = pos
+        self.prev_pos = pos
         self.cred = cred
         self.broken_bool = False
         self.broken_pos = None

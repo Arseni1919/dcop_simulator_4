@@ -54,8 +54,10 @@ def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets
                         sample_again = True
                         new_pos = random.choice(pos_list)
                         break
+            to_make_const = True if random.random() > 0.2 else False
             new_target = TargetNode(i, decay_rate=target_decay_rate, min_life=target_min_life, max_life=target_max_life,
-                                    lifespan=lifespan, pos=new_pos, const=const_app)
+                                    lifespan=lifespan, pos=new_pos, const=to_make_const)
+
             targets_list.append(new_target)
             objects_dict[new_target.name] = new_target
             print(f'target {len(targets_list)} was created..')

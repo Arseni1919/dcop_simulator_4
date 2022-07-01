@@ -46,6 +46,15 @@ def get_collisions_value(targets_list, agents_list, i_time):
 
     # edge collisions
     edge_collisions = 0
+    for agent_1 in agents_list:
+        trans_1 = (agent_1.prev_pos.name, agent_1.pos.name)
+        for agent_2 in agents_list:
+            if agent_1.name != agent_2.name:
+                if not agent_1.broken_bool:
+                    reversed_trans_2 = (agent_2.pos.name, agent_2.prev_pos.name)
+                    if trans_1 == reversed_trans_2:
+                        edge_collisions += 1
+    edge_collisions /= 2
 
     return vertex_collisions + edge_collisions
 
@@ -202,6 +211,11 @@ def save_results(algs_to_compare, n_problems, n_iters, big_cov_dict, big_col_dic
     out_file = open(f"data/{time_adding}_problems_{n_problems}__iters_{n_iters}_col.json", "w")
     json.dump(big_col_dict, out_file, indent=2)
     out_file.close()
+
+
+def update_prev_pos(agents_list):
+    for agent in agents_list:
+        agent.prev_pos = agent.pos
 
 
 def main():
