@@ -27,6 +27,7 @@ class FuncPosNode:
         self_name_in_comb = [pos_name for pos_name in overall_comb if pos_name == self.node.name]
         len_of_self_name_in_comb = len(self_name_in_comb)
         if len_of_self_name_in_comb > 1:
+
             return self.inf
         elif len_of_self_name_in_comb == 0:
             return 0

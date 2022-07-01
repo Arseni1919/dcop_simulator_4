@@ -64,16 +64,18 @@ if __name__ == '__main__':
     SR = 3
 
     algs_to_compare = [
-        'max_sum_mst - breakdowns',
+        'hard_constrained_cams',
         'cams',
+        'hard_constrained_ms',
+        'max_sum_mst - breakdowns',
         'max_sum_mst',
         'dssa',
-        'ca_select_pos',
+        # 'ca_select_pos',
         'cadsa',
         'dsa_mst',
-        'greedy_select_pos',
+        # 'greedy_select_pos',
         # 'greedy',
-        'random'
+        # 'random'
     ]
 
     # SEED

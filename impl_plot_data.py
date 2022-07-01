@@ -23,11 +23,12 @@ def open_data(file_name):
 
 def main():
     # Opening JSON file
-    file_name = 'data/2022-6-26-21-5_problems_50__iters_150_cov.json'
+    adding = '2022-7-1-15-59_problems_20__iters_50'
+    file_name = f'data/{adding}_cov.json'
     big_cov_dict, algs_to_compare, lifespan = open_data(file_name)
     plot_big_cov_graph(big_cov_dict, algs_to_compare, lifespan)
 
-    file_name = 'data/2022-6-26-21-5_problems_50__iters_150_col.json'
+    file_name = f'data/{adding}_col.json'
     big_col_dict, algs_to_compare, lifespan = open_data(file_name)
     plot_big_col_graph(big_col_dict, algs_to_compare, lifespan)
 

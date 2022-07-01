@@ -8,6 +8,8 @@ from impl_alg_dssa import run_alg_dssa
 from impl_alg_ms_mst import run_alg_max_sum_mst
 from impl_alg_cams import run_alg_cams
 from impl_alg_ms_mst_breakdowns import run_max_sum_mst_breakdowns
+from impl_alg_hard_constrained_ms_mst import run_alg_hard_constrained_ms_mst
+from impl_alg_hard_constrained_cams import run_alg_hard_constrained_cams
 
 algs_dict = {
         'random': run_alg_random,
@@ -20,4 +22,7 @@ algs_dict = {
         'max_sum_mst': run_alg_max_sum_mst,
         'max_sum_mst - breakdowns': run_max_sum_mst_breakdowns,
         'cams': run_alg_cams,
+        'hard_constrained_ms': run_alg_hard_constrained_ms_mst,
+        'hard_constrained_cams': run_alg_hard_constrained_cams,
+
     }

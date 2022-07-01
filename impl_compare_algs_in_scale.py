@@ -35,7 +35,7 @@ def compare_algs_in_scale():
 
             # iterations
             for i_iter in range(LIFESPAN):
-                print(f'\rproblem: {i_problem}/{N_PROBLEMS}, alg: "{alg_name}" {i_alg}/{len(algs_to_compare)}, iteration: {i_iter}/{LIFESPAN}', end='')
+                print(f'\rproblem: {i_problem + 1}/{N_PROBLEMS}, alg: "{alg_name}" {i_alg + 1}/{len(algs_to_compare)}, iteration: {i_iter + 1}/{LIFESPAN}', end='')
                 alg_func(i_iter, pos_list, targets_list, agents_list, objects_dict)
 
                 # metrics
@@ -58,8 +58,8 @@ def compare_algs_in_scale():
 
 
 if __name__ == '__main__':
-    LIFESPAN = 150
-    N_PROBLEMS = 50
+    LIFESPAN = 50
+    N_PROBLEMS = 20
     N_TARGETS = 20
     N_AGENTS = 30
     DECAY_RATE = 3
@@ -73,16 +73,18 @@ if __name__ == '__main__':
     LIFE_PLOT = False
 
     algs_to_compare = [
-        'max_sum_mst - breakdowns',
+        'hard_constrained_cams',
         'cams',
-        'max_sum_mst',
-        'dssa',
-        'ca_select_pos',
-        'cadsa',
-        'dsa_mst',
-        'greedy_select_pos',
+        # 'hard_constrained_ms',
+        # 'max_sum_mst - breakdowns',
+        # 'max_sum_mst',
+        # 'dssa',
+        # 'ca_select_pos',
+        # 'cadsa',
+        # 'dsa_mst',
+        # 'greedy_select_pos',
         # 'greedy',
-        'random'
+        # 'random'
     ]
 
     # SEED

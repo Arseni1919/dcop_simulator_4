@@ -22,6 +22,9 @@ class VarNode:
                 func_nei.messages[s_iter][self.node.name] = message
 
     def choose_assignment(self, small_iterations):
+        self.node.pos = self.possible_assignment(small_iterations)
+
+    def possible_assignment(self, small_iterations):
         if len(self.nei_list) > 0:
             message = zeros_message(self)
             max_value = 0.0
@@ -33,9 +36,9 @@ class VarNode:
                         max_value = message[d]
 
             max_poses = [k for k, v in message.items() if v == max_value]
-            self.node.pos = self.objects_dict[random.choice(max_poses)]
+            return self.objects_dict[random.choice(max_poses)]
         else:
-            self.node.pos = get_random_pos(self.node, self.objects_dict)
+            return get_random_pos(self.node, self.objects_dict)
 
 
 class FuncTargetNode:
