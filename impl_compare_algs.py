@@ -64,12 +64,12 @@ if __name__ == '__main__':
     SR = 3
 
     algs_to_compare = [
-        'hard_constrained_cams',
         'cams',
+        'dssa',
+        'hard_constrained_cams',
         'hard_constrained_ms',
         'max_sum_mst - breakdowns',
         'max_sum_mst',
-        'dssa',
         # 'ca_select_pos',
         'cadsa',
         'dsa_mst',

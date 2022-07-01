@@ -73,18 +73,18 @@ if __name__ == '__main__':
     LIFE_PLOT = False
 
     algs_to_compare = [
-        'hard_constrained_cams',
         'cams',
+        # 'hard_constrained_cams',
         # 'hard_constrained_ms',
-        # 'max_sum_mst - breakdowns',
-        # 'max_sum_mst',
-        # 'dssa',
-        # 'ca_select_pos',
-        # 'cadsa',
-        # 'dsa_mst',
+        'max_sum_mst - breakdowns',
+        'max_sum_mst',
+        'dssa',
+        'ca_select_pos',
+        'cadsa',
+        'dsa_mst',
         # 'greedy_select_pos',
         # 'greedy',
-        # 'random'
+        'random',
     ]
 
     # SEED

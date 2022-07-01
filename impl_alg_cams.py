@@ -21,16 +21,36 @@ class FuncPosNode:
                 list_of_other_nei.append(nei)
         return list_of_other_domains, list_of_other_nei
 
+    def check_for_edge_conf(self, v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei):
+        trans_1 = (v_node.node.pos.name, pos_i)
+        for var_nei_pos_name, var_nei_node in zip(comb_of_other_nei_pos, list_of_other_nei):
+
+            # i_curr_pos_of_nei = var_nei_node.node.pos.name
+            # i_v_node_close_positions = v_node.node.pos.neighbours
+            # if i_curr_pos_of_nei in i_v_node_close_positions:
+            #     print('inside')
+
+            trans_2 = (var_nei_node.node.pos.name, var_nei_pos_name)
+            reversed_trans_2 = (var_nei_pos_name, var_nei_node.node.pos.name)
+            if trans_1 == reversed_trans_2 or trans_1 == trans_2:
+                return True
+        return False
+
     def func(self, v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei):
+
+        if self.check_for_edge_conf(v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei):
+            return self.inf
+
         overall_comb = [pos_i]
         overall_comb.extend(comb_of_other_nei_pos)
         self_name_in_comb = [pos_name for pos_name in overall_comb if pos_name == self.node.name]
         len_of_self_name_in_comb = len(self_name_in_comb)
         if len_of_self_name_in_comb > 1:
-
             return self.inf
+
         elif len_of_self_name_in_comb == 0:
             return 0
+
         else:
             overall_comb_dict = {pos_i: v_node}
             overall_comb_dict.update({nei_name: nei_node for nei_name, nei_node in zip(comb_of_other_nei_pos, list_of_other_nei) })
@@ -83,12 +103,20 @@ def set_pos_neighbours(func_p_nodes, variable_nodes, small_iterations):
     # POS NODES
     func_p_dict = {func_p_node.node.name: func_p_node for func_p_node in func_p_nodes}
     for v_node in variable_nodes:
+        # self
+        p_nei = func_p_dict[v_node.node.pos.name]
+        p_nei.nei_list.append(v_node)
+        v_node.nei_list.append(p_nei)
+
+        # neighbours
         for nei_name in v_node.node.pos.neighbours:
             p_nei = func_p_dict[nei_name]
             p_nei.nei_list.append(v_node)
             v_node.nei_list.append(p_nei)
 
-            # update message dicts of both
+    # update message dicts of both
+    for v_node in variable_nodes:
+        for p_nei in v_node.nei_list:
             for s_iter in range(small_iterations):
                 v_node.messages[s_iter][p_nei.node.name] = zeros_message(v_node)
                 p_nei.messages[s_iter][v_node.node.name] = zeros_message(v_node)

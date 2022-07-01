@@ -56,6 +56,11 @@ def get_collisions_value(targets_list, agents_list, i_time):
                         edge_collisions += 1
     edge_collisions /= 2
 
+    # if edge_collisions != 0:
+    #     print(f'\nedge conf ({int(edge_collisions)})')
+    # if vertex_collisions != 0:
+    #     print(f'\nvertex conf ({int(vertex_collisions)})')
+
     return vertex_collisions + edge_collisions
 
 
