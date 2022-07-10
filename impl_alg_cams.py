@@ -38,6 +38,7 @@ class FuncPosNode:
 
     def func(self, v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei):
 
+        # edge conflict check
         if self.check_for_edge_conf(v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei):
             return self.inf
 
@@ -45,6 +46,8 @@ class FuncPosNode:
         overall_comb.extend(comb_of_other_nei_pos)
         self_name_in_comb = [pos_name for pos_name in overall_comb if pos_name == self.node.name]
         len_of_self_name_in_comb = len(self_name_in_comb)
+
+        # vertex conflict check
         if len_of_self_name_in_comb > 1:
             return self.inf
 

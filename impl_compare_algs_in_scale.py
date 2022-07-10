@@ -59,7 +59,9 @@ def compare_algs_in_scale():
 
 if __name__ == '__main__':
     LIFESPAN = 50
+    # LIFESPAN = 5
     N_PROBLEMS = 20
+    # N_PROBLEMS = 2
     N_TARGETS = 20
     N_AGENTS = 30
     DECAY_RATE = 3
