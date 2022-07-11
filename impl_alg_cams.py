@@ -6,11 +6,12 @@ from impl_alg_ms_mst import create_variable_nodes, create_t_function_nodes, set_
 class FuncPosNode:
     def __init__(self, pos, small_iterations, objects_dict):
         self.node = pos
+        self.name = pos.name
         self.messages = {s_iter: {} for s_iter in range(small_iterations)}
         self.nei_list = []
         self.objects_dict = objects_dict
         self.weights = {}
-        self.inf = -70000
+        self.inf = -700000
 
     def _create_list_of_domains(self, send_to_var_nei):
         list_of_other_domains = []
@@ -76,7 +77,7 @@ class FuncPosNode:
             list_of_other_domains, list_of_other_nei = self._create_list_of_domains(v_node)
             comb_of_other_nei_pos_list = list(itertools.product(*list_of_other_domains))
             for comb_of_other_nei_pos in comb_of_other_nei_pos_list:
-                for pos_i in v_node.node.pos.neighbours:
+                for pos_i in list(message.keys()):
                     message[pos_i] = max(
                         message[pos_i],
 
@@ -86,7 +87,7 @@ class FuncPosNode:
                         )
                     )
 
-            message = flatten_message(message)
+            # message = flatten_message(message)
             v_node.messages[s_iter][self.node.name] = message
 
     def dust_weights(self):
@@ -130,7 +131,7 @@ def set_pos_neighbours(func_p_nodes, variable_nodes, small_iterations):
 
 def run_alg_cams(iteration, pos_list, targets_list, agents_list, objects_dict):
     # parameters
-    SMALL_ITERATIONS = 10
+    SMALL_ITERATIONS = 20
 
     # build factor graph
     temp_req = get_temp_req([], targets_list, iteration)
@@ -160,6 +161,9 @@ def run_alg_cams(iteration, pos_list, targets_list, agents_list, objects_dict):
         v_node.choose_assignment(SMALL_ITERATIONS)
 
     execute_breakdowns(iteration, agents_list)
+
+    # check for collisions
+    collisions_value = get_collisions_value(targets_list, agents_list, i_time=iteration)
 
 
 if __name__ == '__main__':

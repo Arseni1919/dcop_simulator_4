@@ -66,8 +66,8 @@ if __name__ == '__main__':
     algs_to_compare = [
         'cams',
         'dssa',
-        'hard_constrained_cams',
-        'hard_constrained_ms',
+        # 'hard_constrained_cams',
+        # 'hard_constrained_ms',
         'max_sum_mst - breakdowns',
         'max_sum_mst',
         # 'ca_select_pos',

@@ -22,9 +22,12 @@ class PlotField:
         if self.life_plot:
             plt.show()
 
-    def close(self):
+    def clean_trackers(self):
         self.coverage_tracker = {}
         self.collisions_tracker = {}
+
+    def close(self):
+        self.clean_trackers()
         if self.life_plot:
             self.ax.clear()
             self.ax2.clear()
@@ -104,7 +107,6 @@ def plot_big_col_graph(big_col_dict, algs_to_compare, lifespan):
         plt.plot(range(lifespan), np.mean(np.cumsum(big_col_dict[alg_name], axis=0), axis=1), label=alg_name)
     plt.legend()
     plt.show()
-
 
 
 def main():

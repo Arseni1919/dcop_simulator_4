@@ -31,6 +31,14 @@ def get_coverage_value(targets_list, agents_list, i_time):
     return total_remained_cov
 
 
+def print_collided_agents(agent1, agent2, conf_type='vertex'):
+
+    print(f'\n{conf_type} conf.: '
+          f'agent {agent1.num} [({agent1.prev_pos.x}, {agent1.prev_pos.y}) -> ({agent1.pos.x}, {agent1.pos.y})] - '
+          f'agent {agent2.num} [({agent2.prev_pos.x}, {agent2.prev_pos.y}) -> ({agent2.pos.x}, {agent2.pos.y})]')
+    pass
+
+
 def get_collisions_value(targets_list, agents_list, i_time):
     # vertex collisions
     vertex_collisions = 0
@@ -40,8 +48,10 @@ def get_collisions_value(targets_list, agents_list, i_time):
                 if agent_1.pos.name == agent_2.pos.name:
                     if not agent_1.broken_bool:
                         vertex_collisions += 1
+                        print_collided_agents(agent_1, agent_2, conf_type='vertex')
                     elif agent_1.broken_time == i_time:
                         vertex_collisions += 1
+                        print_collided_agents(agent_1, agent_2, conf_type='vertex')
     vertex_collisions /= 2
 
     # edge collisions
@@ -54,6 +64,7 @@ def get_collisions_value(targets_list, agents_list, i_time):
                     reversed_trans_2 = (agent_2.pos.name, agent_2.prev_pos.name)
                     if trans_1 == reversed_trans_2:
                         edge_collisions += 1
+                        print_collided_agents(agent_1, agent_2, conf_type='edge')
     edge_collisions /= 2
 
     # if edge_collisions != 0:
@@ -95,6 +106,19 @@ def get_random_pos(agent, objects_dict):
     return rand_choice
 
 
+def next_pos_correction(agents_list, agents_new_pos):
+    for agent_1 in agents_list:
+        good_to_go = True
+        for agent_2 in agents_list:
+            if agent_1.name != agent_2.name:
+                # next pos
+                if agents_new_pos[agent_1.name].name == agents_new_pos[agent_2.name].name:
+                    good_to_go = False
+                    break
+        if good_to_go:
+            agent_1.pos = agents_new_pos[agent_1.name]
+
+
 def breakdowns_correction(agents_list, agents_new_pos):
     for agent_1 in agents_list:
         good_to_go = True
@@ -132,7 +156,9 @@ def flatten_message(message, to_flatten=True):
 
 
 def zeros_message(ms_node, default_value=0.0):
-    return {pos_i: default_value for pos_i in ms_node.node.pos.neighbours}
+    message = {pos_i: default_value for pos_i in ms_node.node.pos.neighbours}
+    message[ms_node.node.pos.name] = default_value
+    return message
 
 
 def cover_target(target, robots_set):
@@ -201,7 +227,7 @@ def execute_breakdowns(iteration, agents_list):
                     agent_2.get_broken(agent_2.pos, iteration)
 
 
-def save_results(algs_to_compare, n_problems, n_iters, big_cov_dict, big_col_dict):
+def save_results(algs_to_compare, n_problems, n_iters, comment, big_cov_dict, big_col_dict):
     # the json file where the output must be stored
     for alg_name in algs_to_compare:
         big_cov_dict[alg_name] = big_cov_dict[alg_name].tolist()
@@ -209,7 +235,7 @@ def save_results(algs_to_compare, n_problems, n_iters, big_cov_dict, big_col_dic
     curr_dt = datetime.now()
     # create a folder
     time_adding = f"{curr_dt.year}-{curr_dt.month}-{curr_dt.day}-{curr_dt.hour}-{curr_dt.minute}"
-    suffix = f'data/{time_adding}_problems_{n_problems}__iters_{n_iters}_'
+    suffix = f'data/{time_adding}_problems_{n_problems}__iters_{n_iters}_{comment}'
     os.mkdir(suffix)
     out_file = open(f"{suffix}/cov.json", "w")
     json.dump(big_cov_dict, out_file, indent=2)

@@ -14,7 +14,7 @@ class PosNode:
 
 class TargetNode:
     def __init__(self, i,
-                 decay_rate=3, min_life=10, max_life=30, lifespan=100,
+                 decay_rate=3, min_life=20, max_life=30, lifespan=100,
                  pos=None, req=100, const=False):
         self.num = i
         self.name = f'target_{i}'
@@ -30,8 +30,11 @@ class TargetNode:
 
     def init(self):
         if not self.const:
-            rand_start = random.randint(0, self.lifespan)
-            rand_lifelong = random.randint(self.min_life, self.max_life + 1)
+            # rand_start = random.randint(0, self.lifespan)
+            possible_starts = list(range(0, 100, 20))
+            rand_start = random.choice(possible_starts)
+            # rand_lifelong = random.randint(self.min_life, self.max_life + 1)
+            rand_lifelong = self.min_life * random.randint(1, 4)
             for i in range(self.lifespan):
                 up_value = 0.0
                 if rand_start <= i <= rand_start + rand_lifelong:
@@ -45,6 +48,7 @@ class TargetNode:
                 self.up_values.append(up_value)
         else:
             self.up_values = [1.0 for _ in range(self.lifespan)]
+        # print(f'{self.name} - up_values: {self.up_values}')
 
 
 class AgentNode:

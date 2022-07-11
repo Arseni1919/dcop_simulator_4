@@ -5,6 +5,7 @@ from impl_run_alg_once import run_alg_once
 class VarNode:
     def __init__(self, agent, objects_dict, small_iterations):
         self.node = agent
+        self.name = agent.name
         self.objects_dict = objects_dict
         self.messages = {s_iter: {} for s_iter in range(small_iterations)}
         self.nei_list = []
@@ -44,9 +45,11 @@ class VarNode:
 class FuncTargetNode:
     def __init__(self, target, small_iterations, objects_dict):
         self.node = target
+        self.name = target.name
         self.messages = {s_iter: {} for s_iter in range(small_iterations)}
         self.nei_list = []
         self.objects_dict = objects_dict
+        self.inf = -700000
 
     def _create_list_of_domains(self, send_to_var_nei):
         list_of_other_domains = []
@@ -64,9 +67,9 @@ class FuncTargetNode:
         if distance_nodes(self.objects_dict[pos_i], self.node.pos) < v_node.node.sr:
             coverage += v_node.node.cred
 
-        for pos_of_nei, nei in zip(comb_of_other_nei_pos, list_of_other_nei):
-            if distance_nodes(self.objects_dict[pos_of_nei], self.node.pos) < nei.node.sr:
-                coverage += nei.node.cred
+        # for pos_of_nei, nei in zip(comb_of_other_nei_pos, list_of_other_nei):
+        #     if distance_nodes(self.objects_dict[pos_of_nei], self.node.pos) < nei.node.sr:
+        #         coverage += nei.node.cred
 
         return min(coverage, self.node.req)
 
@@ -80,9 +83,8 @@ class FuncTargetNode:
         return prev_iteration_brings
 
     def send_messages(self, s_iter):
-        MINUS_INF = -70000
         for v_node in self.nei_list:
-            message = zeros_message(v_node, default_value=MINUS_INF)
+            message = zeros_message(v_node, default_value=0)
             list_of_other_domains, list_of_other_nei = self._create_list_of_domains(v_node)
             comb_of_other_nei_pos_list = list(itertools.product(*list_of_other_domains))
             for comb_of_other_nei_pos in comb_of_other_nei_pos_list:
@@ -91,12 +93,12 @@ class FuncTargetNode:
                         message[pos_i],
 
                         (
-                                self.func(v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei) +
-                                self._prev_iter_brings(s_iter, comb_of_other_nei_pos, list_of_other_nei)
+                                self.func(v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei)
+                                # + self._prev_iter_brings(s_iter, comb_of_other_nei_pos, list_of_other_nei)
                         )
                     )
 
-            message = flatten_message(message)
+            # message = flatten_message(message)
             v_node.messages[s_iter][self.node.name] = message
 
 

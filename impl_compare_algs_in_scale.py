@@ -26,6 +26,8 @@ def compare_algs_in_scale():
             targets_apart=TARGETS_APART,
             const_app=CONSTANT_APPEARANCE,
         )
+        # clear online graphs
+        plotter.clean_trackers()
 
         # algorithms
         for i_alg, alg_name in enumerate(algs_to_compare):
@@ -45,23 +47,28 @@ def compare_algs_in_scale():
                 big_col_dict[alg_name][i_iter][i_problem] = collisions_value
                 # plots
                 plotter.update_trackers(alg_name, coverage_value, collisions_value)
-                plotter.plot_field(i_iter, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
+
+                # stop on collision
+                # if alg_name == 'cams' and collisions_value > 0:
+                #     plotter.plot_field(i_iter, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
+                #     input()
 
                 # after inter and metrics
                 update_prev_pos(agents_list)
 
     plotter.show()
 
-    save_results(algs_to_compare, N_PROBLEMS, LIFESPAN, big_cov_dict, big_col_dict)
+    save_results(algs_to_compare, N_PROBLEMS, LIFESPAN, comment, big_cov_dict, big_col_dict)
     plot_big_cov_graph(big_cov_dict, algs_to_compare, LIFESPAN)
     plot_big_col_graph(big_col_dict, algs_to_compare, LIFESPAN)
 
 
 if __name__ == '__main__':
-    LIFESPAN = 70
+    comment = 'static'
+    LIFESPAN = 120
     # LIFESPAN = 5
-    N_PROBLEMS = 50
-    # N_PROBLEMS = 2
+    # N_PROBLEMS = 50
+    N_PROBLEMS = 5
     N_TARGETS = 20
     N_AGENTS = 30
     DECAY_RATE = 3
@@ -76,17 +83,19 @@ if __name__ == '__main__':
 
     algs_to_compare = [
         'cams',
-        # 'hard_constrained_cams',
-        # 'hard_constrained_ms',
+
         'max_sum_mst - breakdowns',
         'max_sum_mst',
-        'dssa',
-        'ca_select_pos',
-        'cadsa',
-        'dsa_mst',
+        # 'dssa',
+        # 'ca_select_pos',
+        # 'cadsa',
+        # 'dsa_mst',
+        # 'random',
+
+        # 'hard_constrained_cams',
+        # 'hard_constrained_ms',
         # 'greedy_select_pos',
         # 'greedy',
-        'random',
     ]
 
     # SEED
