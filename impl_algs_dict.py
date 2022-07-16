@@ -26,3 +26,18 @@ algs_dict = {
         'hard_constrained_cams': run_alg_hard_constrained_cams,
 
     }
+
+labels_dict = {
+        'random': 'Random',
+        'greedy': 'Greedy',
+        'dsa_mst': 'DSA_MST',
+        'greedy_select_pos': 'Greedy select_pos',
+        'ca_select_pos': 'CA select_pos',
+        'cadsa': 'CADSA',
+        'dssa': 'DSSA',
+        'max_sum_mst': 'Max-sum_MST',
+        'max_sum_mst - breakdowns': 'Max-sum_MST with breakdowns',
+        'cams': 'CAMS',
+        'hard_constrained_ms': 'hard_constrained_ms',
+        'hard_constrained_cams': 'hard_constrained_cams',
+}

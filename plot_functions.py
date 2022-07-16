@@ -2,6 +2,20 @@ import matplotlib.pyplot as plt
 
 from GLOBALS import *
 
+labels_dict = {
+        'random': 'Random',
+        'greedy': 'Greedy',
+        'dsa_mst': 'DSA_MST',
+        'greedy_select_pos': 'Greedy select_pos',
+        'ca_select_pos': 'CA select_pos',
+        'cadsa': 'CADSA',
+        'dssa': 'DSSA',
+        'max_sum_mst': 'Max-sum_MST',
+        'max_sum_mst - breakdowns': 'Max-sum_MST with breakdowns',
+        'cams': 'CAMS',
+        'hard_constrained_ms': 'hard_constrained_ms',
+        'hard_constrained_cams': 'hard_constrained_cams',
+}
 
 class PlotField:
     def __init__(self, side_size, life_plot=True):
@@ -97,15 +111,23 @@ class PlotField:
 
 def plot_big_cov_graph(big_cov_dict, algs_to_compare, lifespan):
     for alg_name in algs_to_compare:
-        plt.plot(range(lifespan), np.mean(big_cov_dict[alg_name], axis=1), label=alg_name)
-    plt.legend()
-    plt.show()
+        plt.plot(range(lifespan), np.mean(big_cov_dict[alg_name], axis=1), label=labels_dict[alg_name])
+    # plt.legend()
+    # plt.show()
+    plot_design()
 
 
 def plot_big_col_graph(big_col_dict, algs_to_compare, lifespan):
     for alg_name in algs_to_compare:
-        plt.plot(range(lifespan), np.mean(np.cumsum(big_col_dict[alg_name], axis=0), axis=1), label=alg_name)
-    plt.legend()
+        plt.plot(range(lifespan), np.mean(np.cumsum(big_col_dict[alg_name], axis=0), axis=1), label=labels_dict[alg_name])
+    # plt.legend()
+    # plt.show()
+    plot_design()
+
+
+def plot_design():
+    plt.rcParams.update({'font.size': 18})
+    plt.legend(frameon=True, loc='upper left')
     plt.show()
 
 

@@ -64,7 +64,7 @@ def compare_algs_in_scale():
 
 
 if __name__ == '__main__':
-    comment = 'static'
+    comment = ''
     LIFESPAN = 120
     # LIFESPAN = 5
     # N_PROBLEMS = 50
@@ -84,8 +84,8 @@ if __name__ == '__main__':
     algs_to_compare = [
         'cams',
 
-        'max_sum_mst - breakdowns',
-        'max_sum_mst',
+        # 'max_sum_mst - breakdowns',
+        # 'max_sum_mst',
         # 'dssa',
         # 'ca_select_pos',
         # 'cadsa',
