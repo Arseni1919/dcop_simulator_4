@@ -67,10 +67,10 @@ def get_collisions_value(targets_list, agents_list, i_time):
                         print_collided_agents(agent_1, agent_2, conf_type='edge')
     edge_collisions /= 2
 
-    # if edge_collisions != 0:
-    #     print(f'\nedge conf ({int(edge_collisions)})')
-    # if vertex_collisions != 0:
-    #     print(f'\nvertex conf ({int(vertex_collisions)})')
+    if edge_collisions != 0:
+        print(f'\nedge conf ({int(edge_collisions)})')
+    if vertex_collisions != 0:
+        print(f'\nvertex conf ({int(vertex_collisions)})')
 
     return vertex_collisions + edge_collisions
 

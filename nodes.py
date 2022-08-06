@@ -31,7 +31,7 @@ class TargetNode:
     def init(self):
         if not self.const:
             # rand_start = random.randint(0, self.lifespan)
-            possible_starts = list(range(0, 100, 20))
+            possible_starts = list(range(0, self.lifespan, self.min_life))
             rand_start = random.choice(possible_starts)
             # rand_lifelong = random.randint(self.min_life, self.max_life + 1)
             rand_lifelong = self.min_life * random.randint(1, 4)

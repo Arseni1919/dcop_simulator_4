@@ -6,6 +6,36 @@ from plot_functions import *
 from functions import *
 
 
+def rand_connect_neighbours(pos_list, min_nei=3, max_nei=6):
+    max_per_pos_dict = {pos.name: random.randint(min_nei, max_nei) for pos in pos_list}
+    shuffled_pos_list = [pos for pos in pos_list]
+    random.shuffle(shuffled_pos_list)
+    # for each pos
+    for pos_1 in shuffled_pos_list:
+
+        # for times that pos_1 requires
+        per_pos_1_num = max_per_pos_dict[pos_1.name]
+        for _ in range(per_pos_1_num):
+
+            # looking for a new neighbour
+            for pos_2 in shuffled_pos_list:
+
+                # if the different node that not already a neighbour
+                if pos_1.name != pos_2.name and pos_1.name not in pos_2.neighbours:
+
+                    # and its distance not too much far away
+                    distance = distance_nodes(pos_1, pos_2)
+                    if distance < 3.01:
+
+                        # and pos_2 has a capacity to have more neighbours
+                        per_pos_2_num = max_per_pos_dict[pos_2.name]
+                        if len(pos_2.neighbours) < per_pos_2_num:
+
+                            # add a new neighbour to both
+                            pos_1.neighbours.append(pos_2.name)
+                            pos_2.neighbours.append(pos_1.name)
+
+
 def connect_neighbours(pos_list):
     for pos_1 in pos_list:
         for pos_2 in pos_list:
@@ -17,8 +47,8 @@ def connect_neighbours(pos_list):
 
 
 def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets=30, target_decay_rate=3,
-                                target_min_life=40, target_max_life=50, side_size=30,
-                                const_app=False, targets_apart=True):
+                                target_min_life=20, target_max_life=50, side_size=30,
+                                const_app=False, targets_apart=True, rand_pos_nei=False):
     pos_list = []
     targets_list = []
     agents_list = []
@@ -32,7 +62,11 @@ def create_dynamic_dcop_setting(lifespan=120, n_agents=30, agent_sr=5, n_targets
             pos_list.append(new_pos)
             objects_dict[new_pos.name] = new_pos
 
-    connect_neighbours(pos_list)
+    # kind of a field
+    if rand_pos_nei:
+        rand_connect_neighbours(pos_list)
+    else:
+        connect_neighbours(pos_list)
 
     # create targets
     print('creating targets...')
@@ -84,7 +118,8 @@ def main():
         target_decay_rate=DECAY_RATE,
         target_min_life=MIN_LIFE,
         target_max_life=MAX_LIFE,
-        side_size=SIDE_SIZE
+        side_size=SIDE_SIZE,
+        rand_pos_nei=RAND_POS_NEI
     )
     for i in range(LIFESPAN):
         print(f'\riteration: {i}', end='')
@@ -93,17 +128,19 @@ def main():
             agent.pos = rand_choice
         coverage_value = get_coverage_value(targets_list, agents_list, i_time=i)
         plotter.update_trackers('rand', coverage_value, collisions_value=0)
-        plotter.plot_field(i, pos_list, targets_list, agents_list, lifespan=LIFESPAN)
+        plotter.plot_field(i, pos_list, targets_list, agents_list, objects_dict=objects_dict, lifespan=LIFESPAN)
 
 
 if __name__ == '__main__':
     LIFESPAN = 100
-    N_TARGETS = 30
+    N_TARGETS = 2
     N_AGENTS = 30
     DECAY_RATE = 3
     MIN_LIFE = 10
     MAX_LIFE = 50
     SIDE_SIZE = 30
     SR = 5
+    RAND_POS_NEI = True
+    # RAND_POS_NEI = False
 
     main()

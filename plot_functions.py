@@ -57,7 +57,7 @@ class PlotField:
             self.collisions_tracker[alg_name] = []
         self.collisions_tracker[alg_name].append(collisions_value)
 
-    def plot_field(self, i, pos_list, targets_list, agents_list, lifespan=100):
+    def plot_field(self, i, pos_list, targets_list, agents_list, objects_dict=None, lifespan=100):
         if self.life_plot:
             # AX 1
             self.ax.clear()
@@ -73,6 +73,14 @@ class PlotField:
             x_pos_list = [node.x for node in pos_list]
             y_pos_list = [node.y for node in pos_list]
             self.ax.scatter(x_pos_list, y_pos_list, marker='s', color='gray', s=3, alpha=0.3)
+
+            # pos neighbours
+            if objects_dict:
+                for main_pos in pos_list:
+                    for nei_pos_name in main_pos.neighbours:
+                        nei_pos = objects_dict[nei_pos_name]
+                        x1, y1 = [main_pos.x, nei_pos.x], [main_pos.y, nei_pos.y]
+                        self.ax.plot(x1, y1, color='k')
 
             # target nodes
             # x_target_list = [node.pos.x for node in targets_list]

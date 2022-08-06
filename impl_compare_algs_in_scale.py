@@ -25,6 +25,7 @@ def compare_algs_in_scale():
             side_size=SIDE_SIZE,
             targets_apart=TARGETS_APART,
             const_app=CONSTANT_APPEARANCE,
+            rand_pos_nei=RAND_POS_NEI
         )
         # clear online graphs
         plotter.clean_trackers()
@@ -64,33 +65,43 @@ def compare_algs_in_scale():
 
 
 if __name__ == '__main__':
-    comment = ''
-    LIFESPAN = 120
-    # LIFESPAN = 5
-    # N_PROBLEMS = 50
-    N_PROBLEMS = 5
-    N_TARGETS = 20
-    N_AGENTS = 30
+    # LIFESPAN = 120
+    LIFESPAN = 40
+    # LIFESPAN = 15
+    N_PROBLEMS = 20
+    # N_PROBLEMS = 5
+    # N_TARGETS = 20
+    N_TARGETS = 5
+    # N_AGENTS = 30
+    N_AGENTS = 8
     DECAY_RATE = 3
-    MIN_LIFE = 40
+    MIN_LIFE = 10
     MAX_LIFE = 50
     TARGETS_APART = True
+    # TARGETS_APART = False
     CONSTANT_APPEARANCE = False
-    SIDE_SIZE = 50
-    SR = 3
-    # LIFE_PLOT = True
-    LIFE_PLOT = False
+    # CONSTANT_APPEARANCE = True
+    # SIDE_SIZE = 50
+    SIDE_SIZE = 25
+    RAND_POS_NEI = True
+    # RAND_POS_NEI = False
+    comment = 'static' if CONSTANT_APPEARANCE else 'dynamic'
+    comment += '_RAND_POS_NEI' if RAND_POS_NEI else ''
+    # SR = 3
+    SR = 2
+    LIFE_PLOT = True
+    # LIFE_PLOT = False
 
     algs_to_compare = [
         'cams',
 
-        # 'max_sum_mst - breakdowns',
-        # 'max_sum_mst',
-        # 'dssa',
-        # 'ca_select_pos',
-        # 'cadsa',
-        # 'dsa_mst',
-        # 'random',
+        'max_sum_mst - breakdowns',
+        'max_sum_mst',
+        'dssa',
+        'ca_select_pos',
+        'cadsa',
+        'dsa_mst',
+        'random',
 
         # 'hard_constrained_cams',
         # 'hard_constrained_ms',

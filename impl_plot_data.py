@@ -24,6 +24,7 @@ def open_data(file_name):
 def main():
     # Opening JSON file
     folder_name = f'2022-7-10-22-4_problems_50__iters_120_dynamic'
+    folder_name = f'2022-8-5-21-37_problems_20__iters_40_'
     # folder_name = f'2022-7-10-22-57_problems_50__iters_120_static'
 
     # adding = '2022-7-1-17-56_problems_20__iters_50'
