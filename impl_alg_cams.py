@@ -131,7 +131,7 @@ def set_pos_neighbours(func_p_nodes, variable_nodes, small_iterations):
 
 def run_alg_cams(iteration, pos_list, targets_list, agents_list, objects_dict):
     # parameters
-    SMALL_ITERATIONS = 20
+    SMALL_ITERATIONS = 10
 
     # build factor graph
     temp_req = get_temp_req([], targets_list, iteration)

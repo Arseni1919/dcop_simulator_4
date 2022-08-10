@@ -66,16 +66,17 @@ def compare_algs_in_scale():
 
 if __name__ == '__main__':
     # LIFESPAN = 120
-    LIFESPAN = 40
+    LIFESPAN = 80
     # LIFESPAN = 15
     N_PROBLEMS = 20
     # N_PROBLEMS = 5
     # N_TARGETS = 20
-    N_TARGETS = 5
+    N_TARGETS = 3
     # N_AGENTS = 30
     N_AGENTS = 8
     DECAY_RATE = 3
-    MIN_LIFE = 10
+    MIN_LIFE = 20
+    # MIN_LIFE = 10
     MAX_LIFE = 50
     TARGETS_APART = True
     # TARGETS_APART = False
@@ -86,11 +87,11 @@ if __name__ == '__main__':
     RAND_POS_NEI = True
     # RAND_POS_NEI = False
     comment = 'static' if CONSTANT_APPEARANCE else 'dynamic'
-    comment += '_RAND_POS_NEI' if RAND_POS_NEI else ''
+    comment += '_RAND_POS_NEI' if RAND_POS_NEI else '_GRID'
     # SR = 3
     SR = 2
-    LIFE_PLOT = True
-    # LIFE_PLOT = False
+    # LIFE_PLOT = True
+    LIFE_PLOT = False
 
     algs_to_compare = [
         'cams',

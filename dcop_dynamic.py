@@ -6,7 +6,7 @@ from plot_functions import *
 from functions import *
 
 
-def rand_connect_neighbours(pos_list, min_nei=3, max_nei=6):
+def rand_connect_neighbours(pos_list, min_nei=2, max_nei=4):
     max_per_pos_dict = {pos.name: random.randint(min_nei, max_nei) for pos in pos_list}
     shuffled_pos_list = [pos for pos in pos_list]
     random.shuffle(shuffled_pos_list)

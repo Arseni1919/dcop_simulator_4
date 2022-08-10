@@ -117,24 +117,36 @@ class PlotField:
             plt.pause(0.05)
 
 
-def plot_big_cov_graph(big_cov_dict, algs_to_compare, lifespan):
+def plot_big_cov_graph(big_cov_dict, algs_to_compare, lifespan, algs_to_plot=None):
     for alg_name in algs_to_compare:
-        plt.plot(range(lifespan), np.mean(big_cov_dict[alg_name], axis=1), label=labels_dict[alg_name])
+
+        if algs_to_plot:
+            if alg_name in algs_to_plot:
+                plt.plot(range(lifespan), np.mean(big_cov_dict[alg_name], axis=1), label=labels_dict[alg_name])
+        else:
+            plt.plot(range(lifespan), np.mean(big_cov_dict[alg_name], axis=1), label=labels_dict[alg_name])
+
     plt.ylabel('Remained Coverage Requirement', fontsize=28)
     plot_design()
 
 
-def plot_big_col_graph(big_col_dict, algs_to_compare, lifespan):
+def plot_big_col_graph(big_col_dict, algs_to_compare, lifespan, algs_to_plot=None):
     for alg_name in algs_to_compare:
-        plt.plot(range(lifespan), np.mean(np.cumsum(big_col_dict[alg_name], axis=0), axis=1), label=labels_dict[alg_name])
+
+        if algs_to_plot:
+            if alg_name in algs_to_plot:
+                plt.plot(range(lifespan), np.mean(np.cumsum(big_col_dict[alg_name], axis=0), axis=1), label=labels_dict[alg_name])
+        else:
+            plt.plot(range(lifespan), np.mean(np.cumsum(big_col_dict[alg_name], axis=0), axis=1), label=labels_dict[alg_name])
+
     plt.ylabel('Collisions', fontsize=28)
     plot_design()
 
 
 def plot_design():
     plt.rcParams.update({'font.size': 18})
-    plt.legend(frameon=False, loc='upper left')
-    # plt.legend(frameon=True, loc='upper left')
+    # plt.legend(frameon=False, loc='upper left')
+    plt.legend(frameon=True, loc='upper left')
     plt.tight_layout()
     plt.show()
 
