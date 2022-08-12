@@ -146,7 +146,9 @@ def plot_big_col_graph(big_col_dict, algs_to_compare, lifespan, algs_to_plot=Non
 def plot_design():
     plt.rcParams.update({'font.size': 18})
     # plt.legend(frameon=False, loc='upper left')
-    plt.legend(frameon=True, loc='upper left')
+    plt.legend(frameon=False, loc='upper left', fontsize=22)
+    # plt.legend(frameon=False, loc='lower left', fontsize=14)
+    # plt.legend(frameon=True, loc='lower left')
     plt.tight_layout()
     plt.show()
 
