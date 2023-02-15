@@ -25,8 +25,8 @@ def main():
     # Opening JSON file
     # folder_name = f'2022-7-10-22-57_problems_50__iters_120_static'
     # folder_name = f'2022-7-10-22-4_problems_50__iters_120_dynamic'
-    folder_name = f'2022-8-7-22-42_problems_20__iters_40_static_RAND_POS_NEI'
-    # folder_name = f'2022-8-7-20-40_problems_20__iters_40_dynamic_RAND_POS_NEI'
+    # folder_name = f'2022-8-7-22-42_problems_20__iters_40_static_RAND_POS_NEI'
+    folder_name = f'2022-8-7-20-40_problems_20__iters_40_dynamic_RAND_POS_NEI'
     # folder_name = f'2022-8-5-21-37_problems_20__iters_40_'
 
 

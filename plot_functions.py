@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
-
+import numpy as np
+import scipy
 from GLOBALS import *
 
 labels_dict = {
@@ -108,13 +109,17 @@ class PlotField:
 
             # --------------------------------------------------------- #
             # AX 3
+            collision = False
             self.ax3.clear()
             self.ax3.set_xlim(0, lifespan)
             for i_alg, i_data in self.collisions_tracker.items():
                 self.ax3.plot(list(range(len(i_data))), np.cumsum(i_data), label=i_alg)
+                collision = np.sum(np.cumsum(i_data)) > 0
             self.ax3.legend()
             self.ax3.set_ylabel('collisions')
             plt.pause(0.05)
+            if collision:
+                plt.show()
 
 
 def plot_big_cov_graph(big_cov_dict, algs_to_compare, lifespan, algs_to_plot=None):
@@ -128,6 +133,14 @@ def plot_big_cov_graph(big_cov_dict, algs_to_compare, lifespan, algs_to_plot=Non
 
     plt.ylabel('Remained Coverage Requirement', fontsize=28)
     plot_design()
+
+    # mean_cams = np.mean(big_cov_dict['cams'], axis=1)[0]
+    # std_cams = np.std(big_cov_dict['cams'], axis=1)[0]
+    # mean_ms = np.mean(big_cov_dict['max_sum_mst'], axis=1)[0]
+    # std_ms = np.std(big_cov_dict['max_sum_mst'], axis=1)[0]
+
+    a = scipy.stats.ttest_ind(big_cov_dict['cams'], big_cov_dict['max_sum_mst'])
+    print(a)
 
 
 def plot_big_col_graph(big_col_dict, algs_to_compare, lifespan, algs_to_plot=None):

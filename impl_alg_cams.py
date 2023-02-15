@@ -72,20 +72,28 @@ class FuncPosNode:
 
     def send_messages(self, s_iter):
 
-        for v_node in self.nei_list:
-            message = zeros_message(v_node, default_value=self.inf)
-            list_of_other_domains, list_of_other_nei = self._create_list_of_domains(v_node)
-            comb_of_other_nei_pos_list = list(itertools.product(*list_of_other_domains))
-            for comb_of_other_nei_pos in comb_of_other_nei_pos_list:
-                for pos_i in list(message.keys()):
-                    message[pos_i] = max(
-                        message[pos_i],
+        for v_node_index, v_node in enumerate(self.nei_list):
 
-                        (
-                                self.func(v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei) +
-                                self._prev_iter_brings(s_iter, comb_of_other_nei_pos, list_of_other_nei)
+            # if v_node_index < 2:
+            if len(self.nei_list) <= 2 or v_node_index == 0:
+                message = zeros_message(v_node, default_value=self.inf)
+                list_of_other_domains, list_of_other_nei = self._create_list_of_domains(v_node)
+                comb_of_other_nei_pos_list = list(itertools.product(*list_of_other_domains))
+                for comb_of_other_nei_pos in comb_of_other_nei_pos_list:
+                    for pos_i in list(message.keys()):
+                        message[pos_i] = max(
+                            message[pos_i],
+
+                            (
+                                    self.func(v_node, pos_i, comb_of_other_nei_pos, list_of_other_nei) +
+                                    self._prev_iter_brings(s_iter, comb_of_other_nei_pos, list_of_other_nei)
+                            )
                         )
-                    )
+            else:
+                message = zeros_message(v_node)
+                message[self.name] = self.inf
+                # for nei_name in self.node.neighbours:
+                #     message[nei_name] = self.inf
 
             # message = flatten_message(message)
             v_node.messages[s_iter][self.node.name] = message
@@ -168,7 +176,7 @@ def run_alg_cams(iteration, pos_list, targets_list, agents_list, objects_dict):
 
 if __name__ == '__main__':
     LIFESPAN = 100
-    SIDE_SIZE = 30
+    SIDE_SIZE = 50
 
     # SEED
     set_seed(seed=12)

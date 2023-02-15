@@ -17,7 +17,8 @@ class VarNode:
                 for other_nei in self.nei_list:
                     if other_nei.node.name != func_nei.node.name:
                         past_message = self.messages[s_iter - 1][func_nei.node.name]
-                        for d in self.node.pos.neighbours:
+                        # for d in self.node.pos.neighbours:
+                        for d in message.keys():
                             message[d] += past_message[d]
                 message = flatten_message(message)
                 func_nei.messages[s_iter][self.node.name] = message
@@ -26,20 +27,32 @@ class VarNode:
         self.node.pos = self.possible_assignment(small_iterations)
 
     def possible_assignment(self, small_iterations):
+        if self.name == 'agent_59':
+            print()
+        if self.name == 'agent_88':
+            print()
         if len(self.nei_list) > 0:
             message = zeros_message(self)
             max_value = 0.0
             for func_nei in self.nei_list:
                 past_message = self.messages[small_iterations - 1][func_nei.node.name]
-                for d in self.node.pos.neighbours:
+                # for d in self.node.pos.neighbours:
+                for d in message.keys():
                     message[d] += past_message[d]
                     if message[d] >= max_value:
                         max_value = message[d]
 
             max_poses = [k for k, v in message.items() if v == max_value]
-            return self.objects_dict[random.choice(max_poses)]
+            chosen_pos = self.objects_dict[random.choice(max_poses)]
+            # return self.objects_dict[random.choice(max_poses)]
         else:
-            return get_random_pos(self.node, self.objects_dict)
+            chosen_pos = get_random_pos(self.node, self.objects_dict)
+            # return get_random_pos(self.node, self.objects_dict)
+        # if self.name == 'agent_38':
+        #     print(f'\ncurr pos: {self.node.pos.name}')
+        #     print(f'future pos: {chosen_pos.name}')
+        self.node.prev_pos = self.node.pos
+        return chosen_pos
 
 
 class FuncTargetNode:
@@ -85,10 +98,17 @@ class FuncTargetNode:
     def send_messages(self, s_iter):
         for v_node in self.nei_list:
             message = zeros_message(v_node, default_value=0)
+            # if v_node.name == 'agent_43':
+            #     print()
+
+            # for pos_i in message.keys():
+            #     if distance_nodes(self.objects_dict[pos_i], self.node.pos) < v_node.node.sr:
+            #         message[pos_i] = v_node.node.cred
+
             list_of_other_domains, list_of_other_nei = self._create_list_of_domains(v_node)
             comb_of_other_nei_pos_list = list(itertools.product(*list_of_other_domains))
             for comb_of_other_nei_pos in comb_of_other_nei_pos_list:
-                for pos_i in v_node.node.pos.neighbours:
+                for pos_i in message.keys():
                     message[pos_i] = max(
                         message[pos_i],
 

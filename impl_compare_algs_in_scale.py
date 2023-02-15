@@ -59,7 +59,7 @@ def compare_algs_in_scale():
 
     plotter.show()
 
-    save_results(algs_to_compare, N_PROBLEMS, LIFESPAN, comment, big_cov_dict, big_col_dict)
+    # save_results(algs_to_compare, N_PROBLEMS, LIFESPAN, comment, big_cov_dict, big_col_dict)
     plot_big_cov_graph(big_cov_dict, algs_to_compare, LIFESPAN)
     plot_big_col_graph(big_col_dict, algs_to_compare, LIFESPAN)
 
@@ -90,8 +90,8 @@ if __name__ == '__main__':
     comment += '_RAND_POS_NEI' if RAND_POS_NEI else '_GRID'
     # SR = 3
     SR = 2
-    # LIFE_PLOT = True
-    LIFE_PLOT = False
+    LIFE_PLOT = True
+    # LIFE_PLOT = False
 
     algs_to_compare = [
         'cams',
